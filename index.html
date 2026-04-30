@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You, Always 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:       #0e0709;
+  --bg2:      #160b10;
+  --rose:     #c94d78;
+  --rose-lt:  #e8809e;
+  --gold:     #c9984a;
+  --cream:    #f5ece4;
+  --cream2:   #eeddd3;
+  --text:     #f0dde6;
+  --muted:    #9b7080;
+  --border:   #2e1620;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ============ PETALS ============ */
+.petal-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -40px;
+  width: 8px; height: 10px;
+  background: var(--rose);
+  border-radius: 0 80% 0 80%;
+  opacity: 0;
+  animation: fall linear infinite;
+}
+.petal:nth-child(2n)  { background: #e8809e; width:6px; height:8px; }
+.petal:nth-child(3n)  { background: #993556; width:10px; height:12px; }
+.petal:nth-child(4n)  { background: #c9984a; width:5px; height:7px; }
+
+@keyframes fall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  z-index: 1;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,77,120,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(201,152,74,0.06) 0%, transparent 60%);
+}
+
+.hero-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 1s ease both;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 1rem;
+  animation: fadeUp 1s 0.15s ease both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--rose-lt);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  animation: fadeUp 1s 0.3s ease both;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  animation: fadeUp 1s 0.4s ease both;
+}
+.hero-divider span { color: var(--rose); font-size: 1rem; }
+.hero-divider::before, .hero-divider::after {
+  content: '';
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border));
+}
+.hero-divider::after { background: linear-gradient(90deg, var(--border), transparent); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeUp 1s 0.6s ease both;
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px; height: 40px;
+  background: linear-gradient(180deg, var(--muted), transparent);
+  animation: scrollLine 2s ease infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.6); }
+}
+
+/* ============ LETTER SECTION ============ */
+.letter-section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.letter-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  max-width: 620px;
+  width: 100%;
+  padding: 3.5rem 3rem;
+  position: relative;
+}
+
+.letter-card::before {
+  content: '✦';
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg2);
+  padding: 0 0.75rem;
+  color: var(--rose);
+  font-size: 0.85rem;
+}
+
+.letter-date {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 2;
+  color: var(--cream2);
+  margin-bottom: 2rem;
+}
+
+/* ============ EDIT: UBAH ISI SURAT DI SINI ============ */
+/* Ubah teks di dalam <p class="letter-body"> di HTML */
+
+.letter-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+.letter-sign-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.letter-sign-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--rose-lt);
+}
+
+/* ============ GALLERY ============ */
+.gallery-section {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1.5rem 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.section-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+}
+.section-title em { font-style: italic; color: var(--rose-lt); }
+
+.gallery-grid {
+  columns: 3;
+  column-gap: 1rem;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) { .gallery-grid { columns: 2; } }
+@media (max-width: 480px) { .gallery-grid { columns: 1; } }
+
+.photo-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.photo-item:hover { transform: scale(1.02); z-index: 2; }
+
+.photo-item img {
+  width: 100%;
+  display: block;
+  filter: saturate(0.85) brightness(0.9);
+  transition: filter 0.4s ease;
+}
+
+.photo-item:hover img { filter: saturate(1) brightness(1); }
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(14,7,9,0.85) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.2rem;
+}
+
+.photo-item:hover .photo-overlay { opacity: 1; }
+
+.photo-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+/* ============ LIGHTBOX ============ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10,5,7,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 2rem;
+}
+.lightbox.open { opacity: 1; pointer-events: all; }
+
+.lightbox-inner {
+  position: relative;
+  max-width: 800px;
+  max-height: 90vh;
+  width: 100%;
+}
+
+.lightbox img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.lightbox-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.lb-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+.lb-close:hover { color: var(--cream); }
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+.lb-nav:hover { background: var(--border); color: var(--cream); }
+.lb-prev { left: -56px; }
+.lb-next { right: -56px; }
+
+@media (max-width: 700px) {
+  .lb-prev { left: 0; bottom: -52px; top: auto; transform: none; }
+  .lb-next { right: 0; bottom: -52px; top: auto; transform: none; }
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 3rem 2rem 4rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-heart {
+  color: var(--rose);
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 1rem;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.footer-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petal-canvas" id="petals"></div>
+
+<!-- ==============================
+     HERO
+     Ubah: tagline, judul, sub-judul
+     ============================== -->
+<section class="hero">
+  <p class="hero-eyebrow">FOR SPECIAL PERSON</p>
+
+  <h1 class="hero-title">
+    Untuk <em>Kamu</em>,<br>Selalu
+  </h1>
+
+  <p class="hero-sub">
+    Di setiap foto ada cerita. Di setiap cerita ada kamu.
+    Dan di setiap momen, aku bersyukur kamu ada.
+  </p>
+
+  <div class="hero-divider"><span>♥</span></div>
+
+  <div class="scroll-hint">gulir ke bawah</div>
+</section>
+
+<!-- ==============================
+     SURAT CINTA
+     Ubah: tanggal, isi surat, nama pengirim
+     ============================== -->
+<section class="letter-section">
+  <div class="letter-card reveal">
+    <p class="letter-date">2 Mei 2026 · Surat untukmu</p>
+    <p class="letter-body">
+      Dedee,<br><br>
+      Aku nggak pandai merangkai kata. Tapi kamu tahu satu hal —
+      setiap foto di halaman ini menyimpan rasa yang sama:
+      bahwa bersamamu adalah rumah yang paling nyaman yang pernah aku temukan.<br><br>
+      Terima kasih sudah ada. Terima kasih sudah tetap ada.
+    </p>
+    <div class="letter-sign">
+      <span class="letter-sign-label">dengan sepenuh hati,</span>
+      <!-- ⬇ GANTI NAMA KAMU DI SINI -->
+      <span class="letter-sign-name">Rae</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     GALERI FOTO
+     Cara tambah foto:
+     1. Upload foto ke repo GitHub (folder bebas / root)
+     2. Copy nama file-nya
+     3. Duplikat blok <div class="photo-item"> di bawah
+     4. Ganti src="nama-file.jpg" & data-caption="keterangannya"
+     ============================== -->
+<section class="gallery-section">
+  <div class="section-header reveal">
+    <p class="section-tag">kenangan kita</p>
+    <h2 class="section-title">Momen yang <em>Tak Terlupakan</em></h2>
+  </div>
+
+  <div class="gallery-grid" id="gallery">
+
+    <!-- ===== FOTO 1 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(0)">
+      <img src="FOTO1 (1).jpeg" alt="kenangan 1" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Hari pertama kita jalan bareng 🌸">Hari pertama kita jalan bareng 🌸</p>
+      </div>
+    </div>
+
+    <!-- ===== FOTO 2 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(1)">
+      <img src="FOTO1 (2).jpeg" alt="kenangan 2" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Senyummu bikin dunia lebih cerah ☀️">Senyummu bikin dunia lebih cerah ☀️</p>
+      </div>
+    </div>
+
+    <!-- ===== FOTO 3 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(2)">
+      <img src="FOTO1 (3).jpeg" alt="kenangan 3" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Momen ini nggak akan pernah aku lupa 🌙">Momen ini nggak akan pernah aku lupa 🌙</p>
+      </div>
+    </div>
+
+    <!-- ===== FOTO 4 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(3)">
+      <img src="FOTO1 (4).jpeg" alt="kenangan 4" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Di mana pun kamu ada, di situ aku ingin berada 🌹">Di mana pun kamu ada, di situ aku ingin berada 🌹</p>
+      </div>
+    </div>
+
+    <!-- ===== FOTO 5 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(4)">
+      <img src="FOTO1 (5).jpeg" alt="kenangan 5" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Tertawa bersamamu adalah hal terbaik ✨">Tertawa bersamamu adalah hal terbaik ✨</p>
+      </div>
+    </div>
+
+    <!-- ===== FOTO 6 ===== -->
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (6).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (7).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (10).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (11).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (12).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (13).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (14).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (15).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (16).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (17).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (18).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (19).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (20).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (21).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (22).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (23).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (24).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (25).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (26).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (27).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (28).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+<div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (29).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (30).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (31).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (32).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (33).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (34).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (35).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (36).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (37).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <div class="photo-item reveal" onclick="openLightbox(5)">
+      <img src="FOTO1 (38).jpeg" alt="kenangan 6" loading="lazy">
+      <div class="photo-overlay">
+        <p class="photo-caption" data-caption="Kamu adalah favorit aku 💗">Kamu adalah favorit aku 💗</p>
+      </div>
+    </div>
+
+    <!-- 
+      TAMBAH FOTO BARU: copy blok di bawah ini, tempel setelah foto6, ganti nomornya
+      <div class="photo-item reveal" onclick="openLightbox(6)">
+        <img src="foto7.jpg" alt="kenangan 7" loading="lazy">
+        <div class="photo-overlay">
+          <p class="photo-caption" data-caption="Keteranganmu di sini">Keteranganmu di sini</p>
+        </div>
+      </div>
+    -->
+
+  </div>
+</section>
+
+<!-- ==============================
+     FOOTER
+     Ubah quote penutup
+     ============================== -->
+<footer class="footer">
+  <span class="footer-heart">♥</span>
+  <p class="footer-text">"Mencintaimu adalah keputusan terbaik yang pernah aku buat."</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕ tutup</button>
+    <button class="lb-nav lb-prev" onclick="navLightbox(-1)">‹</button>
+    <button class="lb-nav lb-next" onclick="navLightbox(1)">›</button>
+    <img id="lb-img" src="" alt="">
+    <p class="lightbox-caption" id="lb-caption"></p>
+  </div>
+</div>
+
+<script>
+/* ===== PETALS ===== */
+const petalCanvas = document.getElementById('petals');
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.style.left = Math.random() * 100 + 'vw';
+  p.style.animationDuration = (8 + Math.random() * 10) + 's';
+  p.style.animationDelay = (Math.random() * 12) + 's';
+  p.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+  petalCanvas.appendChild(p);
+}
+
+/* ===== REVEAL ON SCROLL ===== */
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+
+/* ===== LIGHTBOX ===== */
+const photos = Array.from(document.querySelectorAll('.photo-item'));
+let current = 0;
+
+function openLightbox(idx) {
+  current = idx;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateLightbox() {
+  const item = photos[current];
+  const img = item.querySelector('img');
+  const cap = item.querySelector('[data-caption]');
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-caption').textContent = cap ? cap.dataset.caption : '';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeLightboxOutside(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+function navLightbox(dir) {
+  current = (current + dir + photos.length) % photos.length;
+  updateLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') navLightbox(1);
+  if (e.key === 'ArrowLeft')  navLightbox(-1);
+  if (e.key === 'Escape')     closeLightbox();
+});
+</script>
+</body>
+</html>
